@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SkillSelectionScreen.unity
     guid: 14972ee7c728ddb4998f6e3f0aefd9e9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/World.unity
+    guid: 39a64d0977e344441ac5ee4fa0c96505
   - enabled: 1
     path: Assets/Scenes/LoseScene.unity
     guid: 1bd1dfda984f9474983bb77c3a79b3e1
