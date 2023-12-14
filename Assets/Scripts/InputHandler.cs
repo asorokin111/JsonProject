@@ -48,6 +48,6 @@ public class InputHandler : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
-        Debug.Log("Player attacked");
+        
     }
 }
