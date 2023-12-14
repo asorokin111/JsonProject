@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// The class that handles movement inputs
 public class InputHandler : MonoBehaviour
 {
     public float moveSpeed;
     private Rigidbody2D _rb;
+    private bool _paused;
     private Vector2 _moveDirection;
 
     private ActionMap _actionMap;
     private InputAction _move;
     private InputAction _fire;
+    private InputAction _interact;
+    private InputAction _pause;
 
     private void Awake()
     {
@@ -44,6 +49,11 @@ public class InputHandler : MonoBehaviour
     private void FixedUpdate()
     {
         _rb.velocity = new Vector2(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
+    }
+
+    private void InteractWithTrader(InputAction.CallbackContext context)
+    {
+
     }
 
     private void Fire(InputAction.CallbackContext context)
