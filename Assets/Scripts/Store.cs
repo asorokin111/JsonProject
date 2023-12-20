@@ -159,7 +159,7 @@ public class Store : MonoBehaviour
     {
         Button buyButton;
         buyButton = spawned.transform.Find("BuyButton").GetComponent<Button>();
-        buyButton.interactable = (PersistentData.Instance.Gold >= item.price);
+        buyButton.interactable = PersistentData.Instance.Gold >= item.price;
         buyButton.onClick.AddListener(delegate { BuyButtonClicked(item); });
 
         TextMeshProUGUI nameText, priceText, amountText;
@@ -241,7 +241,7 @@ public class Store : MonoBehaviour
         AddInventoryItem(itemToBuy);
         PersistentData.Instance.WriteToJson();
         OnItemBought?.Invoke();
-        DestroySpawnedItems(); // Not optimal
+        DestroySpawnedItems(); // FIXME: Not optimal
         ShowItemsInUI();
         SaveItemsToJson();
     }

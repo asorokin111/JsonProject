@@ -4,8 +4,6 @@ public class ShopInteraction : MonoBehaviour
 {
     public delegate void StoreOpenAction();
     public static event StoreOpenAction OnStoreOpen;
-    public delegate void StoreCloseAction();
-    public static event StoreCloseAction OnStoreClose;
 
     [SerializeField]
     private GameObject _shopMenu;
@@ -22,7 +20,6 @@ public class ShopInteraction : MonoBehaviour
     public void CloseShop()
     {
         _shopMenu.SetActive(false);
-        OnStoreClose?.Invoke();
     }
 
     private bool IsInShop()
