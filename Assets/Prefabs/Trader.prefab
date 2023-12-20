@@ -245,5 +245,72 @@ Transform:
   m_Children:
   - {fileID: 841879926985157675}
   - {fileID: 2158656027223996167}
+  - {fileID: 8855314221747566058}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8898197695793980553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8855314221747566058}
+  - component: {fileID: 2280241476860342107}
+  m_Layer: 0
+  m_Name: StoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8855314221747566058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898197695793980553}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 607.1302, y: 283.31073, z: -0.28071094}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1646517343067656458}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2280241476860342107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898197695793980553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525194a2df9e3084b843ea69ba480e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+    list: []
+  defaultItems:
+  - name: Sword
+    price: 200
+    amount: 5
+  - name: Spear
+    price: 170
+    amount: 5
+  - name: Shield
+    price: 200
+    amount: 10
+  - name: Bow
+    price: 300
+    amount: 3
+  - name: Arrow
+    price: 10
+    amount: 200
+  _itemPrefab: {fileID: 5665158107025869985, guid: 9c311e1ae52597d42bfc837744dd7c6a, type: 3}
+  _scrollViewContent: {fileID: 0}
+  _offsetDelta: -200
+  _sizeIncreasePerItem: 180

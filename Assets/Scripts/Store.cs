@@ -70,7 +70,7 @@ public class Store : MonoBehaviour
     private void Start()
     {
         GetItemsFromJson();
-        ShowItemsInUI();
+        //ShowItemsInUI();
     }
 
     #region Json Functions

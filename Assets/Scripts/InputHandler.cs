@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +6,7 @@ public class InputHandler : MonoBehaviour
 {
     public float moveSpeed;
     private Rigidbody2D _rb;
+    private ShopInteraction _shopInteraction;
     private Vector2 _moveDirection;
 
     private ActionMap _actionMap;
@@ -18,6 +17,7 @@ public class InputHandler : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _shopInteraction = GetComponent<ShopInteraction>();
         _actionMap = new ActionMap();
     }
 
@@ -29,13 +29,21 @@ public class InputHandler : MonoBehaviour
         _fire = _actionMap.Player.Fire;
         _fire.Enable();
         _fire.performed += Fire;
+
+        _interact = _actionMap.Player.Interact;
+        _interact.Enable();
+        _interact.performed += InteractWithTrader;
     }
 
     private void OnDisable()
     {
         _move.Disable();
+
         _fire.performed -= Fire;
         _fire.Disable();
+
+        _interact.performed -= InteractWithTrader;
+        _interact.Disable();
     }
 
     private void Update()
@@ -50,7 +58,7 @@ public class InputHandler : MonoBehaviour
 
     private void InteractWithTrader(InputAction.CallbackContext context)
     {
-
+        _shopInteraction.OpenShop();
     }
 
     private void Fire(InputAction.CallbackContext context)
