@@ -1,24 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopInteraction : MonoBehaviour
 {
+    public delegate void StoreOpenAction();
+    public static event StoreOpenAction OnStoreOpen;
+    public delegate void StoreCloseAction();
+    public static event StoreCloseAction OnStoreClose;
+
     [SerializeField]
     private GameObject _shopMenu;
     [SerializeField]
-    // The object with the shop script
-    private GameObject _shop;
+    private Collider2D _shopCollider;
 
     public void OpenShop()
     {
-        _shop.SetActive(true);
+        if (!IsInShop()) return;
         _shopMenu.SetActive(true);
+        OnStoreOpen?.Invoke();
     }
 
     public void CloseShop()
     {
         _shopMenu.SetActive(false);
-        _shop.SetActive(false);
+        OnStoreClose?.Invoke();
+    }
+
+    private bool IsInShop()
+    {
+        return _shopCollider.bounds.Contains(transform.position);
     }
 }

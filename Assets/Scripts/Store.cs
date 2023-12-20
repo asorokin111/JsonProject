@@ -73,6 +73,11 @@ public class Store : MonoBehaviour
         //ShowItemsInUI();
     }
 
+    private void OnEnable()
+    {
+        ShopInteraction.OnStoreOpen += ShowItemsInUI;
+    }
+
     #region Json Functions
     private void GetItemsFromJson()
     {
