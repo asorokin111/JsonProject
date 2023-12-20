@@ -36,9 +36,9 @@ public class Inventory : MonoBehaviour
         _spawnedItems = new List<GameObject>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        DisplayInventoryUI();
+        ShopInteraction.OnInventoryOpen += DisplayInventoryUI;
     }
 
     private void InitializeItemSlot(InventoryItem item)
