@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,14 +8,12 @@ public class InputHandler : MonoBehaviour
 {
     public float moveSpeed;
     private Rigidbody2D _rb;
-    private bool _paused;
     private Vector2 _moveDirection;
 
     private ActionMap _actionMap;
     private InputAction _move;
     private InputAction _fire;
     private InputAction _interact;
-    private InputAction _pause;
 
     private void Awake()
     {
@@ -37,8 +34,8 @@ public class InputHandler : MonoBehaviour
     private void OnDisable()
     {
         _move.Disable();
-        _fire.Disable();
         _fire.performed -= Fire;
+        _fire.Disable();
     }
 
     private void Update()

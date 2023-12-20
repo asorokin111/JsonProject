@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,6 +32,20 @@ public class SwitchScene : MonoBehaviour
         SceneManager.LoadScene(previousScene);
     }
 
+    // Pause toggle that's not tied to the player
+    // TODO: make this entire class into a singleton and delete the pause that's tied to the player
+    public void GlobalPause(GameObject pauseMenu)
+    {
+        bool paused = Time.timeScale == 0.0f;
+        Time.timeScale = paused ? 1 : 0;
+        pauseMenu.SetActive(!paused);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     private void SavePreviousIndex()
     {
         PersistentData.Instance.previousScenes.Push(SceneManager.GetActiveScene().buildIndex);
@@ -40,4 +56,5 @@ public class SwitchScene : MonoBehaviour
         if (PersistentData.Instance.FileExistsAndNotEmpty() && SceneManager.GetActiveScene().buildIndex != 0)
             PersistentData.Instance.QuickSave();
     }
+
 }
