@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1533297202072235553}
   - component: {fileID: 1576053349337811424}
   - component: {fileID: 6426093194952272961}
+  - component: {fileID: 4717653038212356840}
   m_Layer: 0
   m_Name: SwordHitbox
   m_TagString: Untagged
@@ -130,6 +131,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4717653038212356840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233574010664597439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d9c3d66d8335e479e79717d71f5dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 5
 --- !u!1 &4288617966496196700
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +316,6 @@ MonoBehaviour:
   _shopMenu: {fileID: 0}
   _inventoryMenu: {fileID: 0}
   _shopCollider: {fileID: 0}
-  _inputHandler: {fileID: 0}
 --- !u!1 &6519563004618139865
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,8 +446,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitbox: {fileID: 233574010664597439}
-  _inputHandler: {fileID: 7821026812899488848}
-  _damage: 10
   _windup: 0.1
   _attackTime: 0.7
   _cooldown: 0.2

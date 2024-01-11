@@ -10,8 +10,6 @@ public class CombatHandler : MonoBehaviour
 
     [Header("Combat Settings")]
     [SerializeField]
-    private int _damage;
-    [SerializeField]
     private float _windup;
     [SerializeField]
     private float _attackTime;
@@ -21,8 +19,8 @@ public class CombatHandler : MonoBehaviour
     private bool _isAttacking;
 
     // OnEnable tries to get ActionMap from pre-set InputHandler too early, so I have to
-    // create a unique ActionMap in every input script to avoid racing with InputHandler's Awake()
-    // the script is huge, so a global ActionMap would be much better
+    // create a unique ActionMap in every input script to avoid racing with InputHandler's Awake().
+    // The script is huge, so a global ActionMap would be much better.
     private ActionMap _map;
 
     private InputAction _attackAction;
