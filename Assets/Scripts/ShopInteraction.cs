@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ShopInteraction : MonoBehaviour
 {
@@ -15,7 +16,30 @@ public class ShopInteraction : MonoBehaviour
     [SerializeField]
     private Collider2D _shopCollider;
 
-    public void OpenShop()
+    // Input system
+    [SerializeField]
+    private InputHandler _inputHandler;
+    private InputAction _interact;
+
+    private void Awake()
+    {
+        if (_inputHandler == null) _inputHandler = GetComponent<InputHandler>();
+    }
+
+    private void OnEnable()
+    {
+        _interact = _inputHandler.actionMap.Player.Interact;
+        _interact.Enable();
+        _interact.performed += OpenShop;
+    }
+
+    private void OnDisable()
+    {
+        _interact.performed -= OpenShop;
+        _interact.Disable();
+    }
+
+    public void OpenShop(InputAction.CallbackContext context)
     {
         if (!IsInShop()) return;
         _shopMenu.SetActive(true);
