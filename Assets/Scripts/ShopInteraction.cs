@@ -17,18 +17,17 @@ public class ShopInteraction : MonoBehaviour
     private Collider2D _shopCollider;
 
     // Input system
-    [SerializeField]
-    private InputHandler _inputHandler;
+    private ActionMap _map;
     private InputAction _interact;
 
     private void Awake()
     {
-        if (_inputHandler == null) _inputHandler = GetComponent<InputHandler>();
+        _map = new ActionMap();
     }
 
     private void OnEnable()
     {
-        _interact = _inputHandler.actionMap.Player.Interact;
+        _interact = _map.Player.Interact;
         _interact.Enable();
         _interact.performed += OpenShop;
     }
