@@ -43,12 +43,26 @@ public class CombatHandler : MonoBehaviour
         _attackAction.Disable();
     }
 
+    private void Update()
+    {
+        if (!_isAttacking)
+            RotateSword();
+    }
+
     private void StartAttack(InputAction.CallbackContext context)
     {
         if (!_isAttacking)
         {
             StartCoroutine(Attack());
         }
+    }
+
+    private void RotateSword()
+    {
+        Vector2 pos = Camera.main.WorldToViewportPoint(transform.position);
+        Vector2 mouse = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(pos.y - mouse.y, pos.x - mouse.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     private IEnumerator Attack()

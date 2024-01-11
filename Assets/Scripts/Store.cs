@@ -92,7 +92,7 @@ public class Store : MonoBehaviour
             SaveItemsToJson();
         }
         _scrollViewContent.sizeDelta = new Vector2(_scrollViewContent.sizeDelta.x,
-            _scrollViewContent.sizeDelta.y + _sizeIncreasePerItem * items.list.Count(item => item.amount > 0)); // TODO: fix this
+            _scrollViewContent.sizeDelta.y + _sizeIncreasePerItem * items.list.Count(item => item.amount > 0)); // FIXME
     }
 
     private bool FileExistsAndNotEmpty(string path)
