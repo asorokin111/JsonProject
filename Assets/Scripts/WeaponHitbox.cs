@@ -4,6 +4,8 @@ public class WeaponHitbox : MonoBehaviour
 {
     [SerializeField]
     private int _damage;
+    [SerializeField]
+    private ParticleSystem _hitParticles;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -11,6 +13,8 @@ public class WeaponHitbox : MonoBehaviour
         {
             var enemyScript = other.gameObject.GetComponent<Enemy>();
             enemyScript.Damage(_damage);
+            if (_hitParticles.isPlaying) _hitParticles.Stop();
+            _hitParticles.Play();
         }
     }
 }
