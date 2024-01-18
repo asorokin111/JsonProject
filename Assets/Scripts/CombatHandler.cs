@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class CombatHandler : MonoBehaviour
 {
@@ -16,33 +17,6 @@ public class CombatHandler : MonoBehaviour
     [SerializeField]
     private float _cooldown;
 
-    [Header("Swing animation settings")]
-    [SerializeField]
-    private AnimationClip _swingAnimation;
-
-    [Header("Left side animation")]
-    // I have to specify every variable here by itself because keyframes can't be serialized
-    [SerializeField]
-    private float _leftAnimStart = 0.0f;
-    [SerializeField]
-    private float _leftAnimEnd = 1.0f;
-    [SerializeField]
-    private float _leftAnimStartRotation = 30.0f;
-    [SerializeField]
-    private float _leftAnimEndRotation = 130.0f;
-
-    [Header("Right side animation")]
-    [SerializeField]
-    private float _rightAnimStart = 0.0f;
-    [SerializeField]
-    private float _rightAnimEnd = 1.0f;
-    [SerializeField]
-    private float _rightAnimStartRotation = -30.0f;
-    [SerializeField]
-    private float _rightAnimEndRotation = -130.0f;
-
-    private Keyframe[] _leftKeys;
-    private Keyframe[] _rightKeys;
     private bool _cursorOnRightSide = false;
 
     private bool _isAttacking;
@@ -57,14 +31,6 @@ public class CombatHandler : MonoBehaviour
     private void Awake()
     {
         _map = new ActionMap();
-
-        _leftKeys = new Keyframe[2];
-        _leftKeys[0] = new Keyframe(_leftAnimStart, _leftAnimStartRotation);
-        _leftKeys[1] = new Keyframe(_leftAnimEnd, _leftAnimEndRotation);
-
-        _rightKeys = new Keyframe[2];
-        _rightKeys[0] = new Keyframe(_rightAnimStart, _rightAnimStartRotation);
-        _rightKeys[1] = new Keyframe(_rightAnimEnd, _rightAnimEndRotation);
     }
 
     private void OnEnable()
@@ -93,9 +59,7 @@ public class CombatHandler : MonoBehaviour
             // Checking if the cursor's screen side changed
             if (_cursorOnRightSide != previouslyOnRight)
             {
-                Debug.Log(true);
-                var curve = new AnimationCurve(_cursorOnRightSide ? _rightKeys : _leftKeys);
-                _swingAnimation.SetCurve("SwordHitbox", typeof(Transform), "localRotation.z", curve);
+                
             }
         }
     }
