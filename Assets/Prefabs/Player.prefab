@@ -471,3 +471,4 @@ MonoBehaviour:
   _windup: 0
   _attackTime: 0.5
   _cooldown: 0.1
+  _swingAnimation: {fileID: 7400000, guid: bfd8d24d19ade334fb0d1bac074189b0, type: 2}

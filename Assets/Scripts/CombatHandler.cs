@@ -16,6 +16,35 @@ public class CombatHandler : MonoBehaviour
     [SerializeField]
     private float _cooldown;
 
+    [Header("Swing animation settings")]
+    [SerializeField]
+    private AnimationClip _swingAnimation;
+
+    [Header("Left side animation")]
+    // I have to specify every variable here by itself because keyframes can't be serialized
+    [SerializeField]
+    private float _leftAnimStart = 0.0f;
+    [SerializeField]
+    private float _leftAnimEnd = 1.0f;
+    [SerializeField]
+    private float _leftAnimStartRotation = 30.0f;
+    [SerializeField]
+    private float _leftAnimEndRotation = 130.0f;
+
+    [Header("Right side animation")]
+    [SerializeField]
+    private float _rightAnimStart = 0.0f;
+    [SerializeField]
+    private float _rightAnimEnd = 1.0f;
+    [SerializeField]
+    private float _rightAnimStartRotation = -30.0f;
+    [SerializeField]
+    private float _rightAnimEndRotation = -130.0f;
+
+    private Keyframe[] _leftKeys;
+    private Keyframe[] _rightKeys;
+    private bool _cursorOnRightSide = false;
+
     private bool _isAttacking;
 
     // OnEnable tries to get ActionMap from pre-set InputHandler too early, so I have to
@@ -28,6 +57,14 @@ public class CombatHandler : MonoBehaviour
     private void Awake()
     {
         _map = new ActionMap();
+
+        _leftKeys = new Keyframe[2];
+        _leftKeys[0] = new Keyframe(_leftAnimStart, _leftAnimStartRotation);
+        _leftKeys[1] = new Keyframe(_leftAnimEnd, _leftAnimEndRotation);
+
+        _rightKeys = new Keyframe[2];
+        _rightKeys[0] = new Keyframe(_rightAnimStart, _rightAnimStartRotation);
+        _rightKeys[1] = new Keyframe(_rightAnimEnd, _rightAnimEndRotation);
     }
 
     private void OnEnable()
@@ -46,7 +83,21 @@ public class CombatHandler : MonoBehaviour
     private void Update()
     {
         if (!_isAttacking)
+        {
             RotateSword();
+
+            // Swapping animation keyframes for it to look mirrored here
+            // because RotateSword() only rotates the object and not the animation
+            bool previouslyOnRight = _cursorOnRightSide;
+            _cursorOnRightSide = Input.mousePosition.x >= Screen.width / 2;
+            // Checking if the cursor's screen side changed
+            if (_cursorOnRightSide != previouslyOnRight)
+            {
+                Debug.Log(true);
+                var curve = new AnimationCurve(_cursorOnRightSide ? _rightKeys : _leftKeys);
+                _swingAnimation.SetCurve("SwordHitbox", typeof(Transform), "localRotation.z", curve);
+            }
+        }
     }
 
     private void StartAttack(InputAction.CallbackContext context)
