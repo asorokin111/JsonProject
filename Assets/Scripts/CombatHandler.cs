@@ -17,6 +17,7 @@ public class CombatHandler : MonoBehaviour
     [SerializeField]
     private float _cooldown;
 
+    private GameObject _playerObject;
     private bool _cursorOnRightSide = false;
 
     private bool _isAttacking;
@@ -31,6 +32,7 @@ public class CombatHandler : MonoBehaviour
     private void Awake()
     {
         _map = new ActionMap();
+        _playerObject = transform.parent.gameObject;
     }
 
     private void OnEnable()
@@ -50,18 +52,23 @@ public class CombatHandler : MonoBehaviour
     {
         if (!_isAttacking)
         {
-            RotateSword();
-
-            // Swapping animation keyframes for it to look mirrored here
-            // because RotateSword() only rotates the object and not the animation
             bool previouslyOnRight = _cursorOnRightSide;
             _cursorOnRightSide = Input.mousePosition.x >= Screen.width / 2;
             // Checking if the cursor's screen side changed
             if (_cursorOnRightSide != previouslyOnRight)
             {
-                
+                FlipPlayer();
             }
         }
+    }
+
+    private void FlipPlayer()
+    {
+        _playerObject.transform.localScale = new Vector3(
+                    _playerObject.transform.localScale.x * -1f,
+                    _playerObject.transform.localScale.y,
+                    _playerObject.transform.localScale.z
+                );
     }
 
     private void StartAttack(InputAction.CallbackContext context)
@@ -70,14 +77,6 @@ public class CombatHandler : MonoBehaviour
         {
             StartCoroutine(Attack());
         }
-    }
-
-    private void RotateSword()
-    {
-        Vector2 pos = Camera.main.WorldToViewportPoint(transform.position);
-        Vector2 mouse = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        float angle = Mathf.Atan2(pos.y - mouse.y, pos.x - mouse.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     private IEnumerator Attack()
