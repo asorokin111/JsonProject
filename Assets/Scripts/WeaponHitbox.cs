@@ -13,6 +13,7 @@ public class WeaponHitbox : MonoBehaviour
         {
             var enemyScript = other.gameObject.GetComponent<Enemy>();
             enemyScript.Damage(_damage);
+            _hitParticles.transform.position = other.transform.position;
             if (_hitParticles.isPlaying) _hitParticles.Stop();
             _hitParticles.Play();
         }
