@@ -17,7 +17,6 @@ public class CombatHandler : MonoBehaviour
     [SerializeField]
     private float _cooldown;
 
-    private GameObject _playerObject;
     private bool _cursorOnRightSide = false;
 
     private bool _isAttacking;
@@ -32,7 +31,6 @@ public class CombatHandler : MonoBehaviour
     private void Awake()
     {
         _map = new ActionMap();
-        _playerObject = transform.parent.gameObject;
     }
 
     private void OnEnable()
@@ -50,33 +48,30 @@ public class CombatHandler : MonoBehaviour
 
     private void Update()
     {
-        if (!_isAttacking)
+        if (_isAttacking) return;
+        bool previouslyOnRight = _cursorOnRightSide;
+        _cursorOnRightSide = Input.mousePosition.x >= Screen.width / 2;
+        // Checking if the cursor's screen side changed
+        if (_cursorOnRightSide != previouslyOnRight)
         {
-            bool previouslyOnRight = _cursorOnRightSide;
-            _cursorOnRightSide = Input.mousePosition.x >= Screen.width / 2;
-            // Checking if the cursor's screen side changed
-            if (_cursorOnRightSide != previouslyOnRight)
-            {
-                FlipPlayer();
-            }
+            FlipPlayer();
         }
     }
 
     private void FlipPlayer()
     {
-        _playerObject.transform.localScale = new Vector3(
-                    _playerObject.transform.localScale.x * -1f,
-                    _playerObject.transform.localScale.y,
-                    _playerObject.transform.localScale.z
+        Transform playerTransform = transform.parent;
+        playerTransform.localScale = new Vector3(
+                    -playerTransform.localScale.x,
+                    playerTransform.localScale.y,
+                    playerTransform.localScale.z
                 );
     }
 
     private void StartAttack(InputAction.CallbackContext context)
     {
-        if (!_isAttacking)
-        {
-            StartCoroutine(Attack());
-        }
+        if (_isAttacking) return;
+        StartCoroutine(Attack());
     }
 
     private IEnumerator Attack()
