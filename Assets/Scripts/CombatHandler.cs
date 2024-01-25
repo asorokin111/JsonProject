@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class CombatHandler : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class CombatHandler : MonoBehaviour
     [SerializeField]
     private float _cooldown;
 
-    private bool _cursorOnRightSide = false;
+    private ScreenSide _previousCursorSide = ScreenSide.Left;
 
     private bool _isAttacking;
 
@@ -27,6 +26,12 @@ public class CombatHandler : MonoBehaviour
     private ActionMap _map;
 
     private InputAction _attackAction;
+
+    enum ScreenSide
+    {
+        Left,
+        Right,
+    }
 
     private void Awake()
     {
@@ -46,16 +51,21 @@ public class CombatHandler : MonoBehaviour
         _attackAction.Disable();
     }
 
+    ScreenSide CheckCursorSide()
+    {
+        return Input.mousePosition.x >= (Screen.width / 2) ? ScreenSide.Right: ScreenSide.Left;
+    }
+
     private void Update()
     {
         if (_isAttacking) return;
-        bool previouslyOnRight = _cursorOnRightSide;
-        _cursorOnRightSide = Input.mousePosition.x >= Screen.width / 2;
+        ScreenSide currentCursorSide = CheckCursorSide();
         // Checking if the cursor's screen side changed
-        if (_cursorOnRightSide != previouslyOnRight)
+        if (currentCursorSide != _previousCursorSide)
         {
             FlipPlayer();
         }
+        _previousCursorSide = currentCursorSide;
     }
 
     private void FlipPlayer()
