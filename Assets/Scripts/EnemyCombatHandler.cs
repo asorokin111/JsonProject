@@ -1,29 +1,9 @@
-using System.Collections;
 using UnityEngine;
 
-public class EnemyCombatHandler : MonoBehaviour
+public class EnemyCombatHandler : CombatHandler
 {
-    [Tooltip("Weapon hitbox object")]
-    [SerializeField]
-    private GameObject _hitbox;
-    // Somewhat similar to the player's combat handler
-    [Header("Combat Settings")]
-    [SerializeField]
-    private float _windup;
-    [SerializeField]
-    private float _attackTime;
-    [SerializeField]
-    private float _cooldown;
-
     private Transform _player;
     private ScreenSide _previousPlayerSide = ScreenSide.Left;
-    private bool _isAttacking;
-
-    enum ScreenSide
-    {
-        Left,
-        Right,
-    }
 
     private void Start()
     {
@@ -33,10 +13,10 @@ public class EnemyCombatHandler : MonoBehaviour
     private void Update()
     {
         if (_isAttacking) return;
-        ScreenSide relativePlayerSide = CheckPlayerSide();
+        ScreenSide relativePlayerSide = CheckTargetPosition();
         if (relativePlayerSide != _previousPlayerSide)
         {
-            Flip();
+            OrientateTowardsTarget();
         }
         _previousPlayerSide = relativePlayerSide;
         StartAttack();
@@ -44,7 +24,7 @@ public class EnemyCombatHandler : MonoBehaviour
     }
 
     // Checks whether the player is on the left or right side relative to this enemy
-    ScreenSide CheckPlayerSide()
+    protected override ScreenSide CheckTargetPosition()
     {
         if (_player.position.x >= transform.position.x)
         {
@@ -56,7 +36,7 @@ public class EnemyCombatHandler : MonoBehaviour
         }
     }
 
-    private void Flip()
+    protected override void OrientateTowardsTarget()
     {
         Transform enemyTransform = transform.parent;
         enemyTransform.localScale = new Vector3(
@@ -64,22 +44,5 @@ public class EnemyCombatHandler : MonoBehaviour
                     enemyTransform.localScale.y,
                     enemyTransform.localScale.z
                 );
-    }
-
-    private void StartAttack()
-    {
-        if (_isAttacking) return;
-        StartCoroutine(Attack());
-    }
-
-    private IEnumerator Attack()
-    {
-        _isAttacking = true;
-        yield return new WaitForSeconds(_windup);
-        _hitbox.SetActive(true);
-        yield return new WaitForSeconds(_attackTime);
-        _hitbox.SetActive(false);
-        yield return new WaitForSeconds(_cooldown);
-        _isAttacking = false;
     }
 }

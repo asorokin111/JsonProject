@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080613884c2902343954234d371ec8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitbox: {fileID: 5330521676224780113}
+  _weaponHitbox: {fileID: 5330521676224780113}
   _windup: 0.1
   _attackTime: 2
   _cooldown: 0.3
